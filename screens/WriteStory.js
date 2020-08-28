@@ -9,7 +9,7 @@ import {
   KeyboardAvoidingView,
   Alert
 } from "react-native";
-
+import db from '../config'
 export default class WriteStory extends React.Component{
     constructor(){
         super()
@@ -20,6 +20,15 @@ export default class WriteStory extends React.Component{
         }
     }
 
+
+    submitStory=async()=>{
+            var storyRef=db.ref("/book")
+            storyRef.update({
+                author:this.state.author,
+                title:this.state.title,
+                story:this.state.story
+            })
+    }
     render(){
         return(
             <View>
@@ -47,14 +56,16 @@ export default class WriteStory extends React.Component{
               <View style={styles.inputView}>
               <TextInput
                 style={styles.inputBox}
-                placeholder="Book Id"
+                placeholder="story"
+                multiline={true}
                 onChangeText={text => {
                   this.setState({
                     story: text
                   });
                 }}/>
                 </View>
-                <TouchableOpacity style={styles.submitButton}>SUBMIT</TouchableOpacity>
+                <TouchableOpacity style={styles.submitButton}
+                onPress={this.submitStory()}>SUBMIT</TouchableOpacity>
                 </View>
         )
     }
