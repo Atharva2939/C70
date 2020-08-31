@@ -7,7 +7,8 @@ import {
   Image,
   StyleSheet,
   KeyboardAvoidingView,
-  Alert
+  Alert,
+  ToastAndroid
 } from "react-native";
 import db from '../config'
 export default class WriteStory extends React.Component{
@@ -16,7 +17,8 @@ export default class WriteStory extends React.Component{
         this.state={
             title:"",
             author:"",
-            story:""
+            story:"",
+            transactionMessage:""
         }
     }
 
@@ -29,8 +31,13 @@ export default class WriteStory extends React.Component{
                 story:this.state.story
             })
     }
+    message=()=>{
+      transactionMessage="story submitted"
+      ToastAndroid.show(transactionMessage,ToastAndroid.SHORT)
+    }
     render(){
         return(
+          <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
             <View>
                 <View style={styles.inputView}>
             <TextInput
@@ -65,8 +72,12 @@ export default class WriteStory extends React.Component{
                 }}/>
                 </View>
                 <TouchableOpacity style={styles.submitButton}
-                onPress={this.submitStory()}>SUBMIT</TouchableOpacity>
+                onPress={()=>{
+                  this.submitStory()
+                  this.message()}}>
+                  SUBMIT</TouchableOpacity>
                 </View>
+                </KeyboardAvoidingView>
         )
     }
 }
