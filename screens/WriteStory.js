@@ -10,7 +10,9 @@ import {
   Alert,
   ToastAndroid
 } from "react-native";
-import db from '../config'
+import * as firebase from "firebase";
+import db from "../config.js";
+
 export default class WriteStory extends React.Component{
     constructor(){
         super()
@@ -24,12 +26,11 @@ export default class WriteStory extends React.Component{
 
 
     submitStory=async()=>{
-            var storyRef=db.ref("/book")
-            storyRef.update({
-                author:this.state.author,
-                title:this.state.title,
-                story:this.state.story
-            })
+      db.collection("book").add({
+        title: this.state.title,
+        author: this.state.author,
+        story:this.state.story
+      });
     }
     message=()=>{
       transactionMessage="story submitted"
