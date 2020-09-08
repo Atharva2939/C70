@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 
 import ReadStory from './screens/ReadStory';
 import WriteStory from './screens/WriteStory';
+import LoginScreen from './screens/LoginScreen'
 
 export default class App extends React.Component {
   render(){
@@ -41,7 +42,10 @@ tabBarIcon:({})=>{
 
 );
 
-
+const switchNavigator=createSwitchNavigator({
+  LoginScreen:{screen:LoginScreen},
+  TabNavigator:{screen:TabNavigator}
+})
 
 const AppContainer =  createAppContainer(switchNavigator);
 const styles = StyleSheet.create({
